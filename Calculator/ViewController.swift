@@ -18,12 +18,30 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    var userIsTyping = false
+    
     @IBOutlet weak var display: UILabel!
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
-        let textCurrentlyInDisplay = display!.text!
-        display!.text = textCurrentlyInDisplay + digit
+        
+        if userIsTyping {
+            let textCurrentlyInDisplay = display.text!
+            display.text = textCurrentlyInDisplay + digit
+        } else {
+            display.text = digit
+        }
+        userIsTyping = true
+    }
+    
+    
+    @IBAction func performOperation(_ sender: UIButton) {
+        userIsTyping = false
+        if let mathematicalSymbol = sender.currentTitle {
+            if mathematicalSymbol == "π" {
+                display.text = String(Double.pi)
+            }
+        }
     }
     
 }
